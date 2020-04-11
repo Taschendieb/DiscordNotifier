@@ -11,10 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/helmet": "0.0.45",
     "cors": "^2.8.5",
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "helmet": "^3.22.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
