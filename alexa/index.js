@@ -140,6 +140,7 @@ const WhosOnlineIntendHandler = {
                         speakOutput += ', ';
                     }
                 }
+                speakOutput += '. ';
             });
         }
         if (userCount === 0) {

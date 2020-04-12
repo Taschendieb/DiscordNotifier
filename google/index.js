@@ -16,9 +16,32 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
  
   async function welcome(agent) {
-    await queryDiscordApi('https://discordapp.com/api/users/@me', agent).then((user) => {
-        agent.add('Wilkommen ' + user.username);
-    });
+    let accessToken = agent.originalRequest.payload.user.accessToken;
+    if (accessToken === undefined) {
+        let speakOutput;
+        switch(getLanguage()) {
+            case 'de-DE':
+                speakOutput = 'Bitte verbinde deinen Discord Account, um diesen Service zu nutzen';
+                break;
+            default:
+                speakOutput = 'Please link your discord account first to use this service';
+                break;
+        }
+        agent.add(speakOutput);
+    } else {
+        await queryDiscordApi('https://discordapp.com/api/users/@me', agent).then((user) => {
+            let l_welcome;
+            switch(getLanguage()) {
+                case 'de-DE':
+                    l_welcome = 'Willkommen';
+                    break;
+                default:
+                    l_welcome = 'Welcome';
+                    break;
+            }    
+            agent.add(l_welcome + ' ' + user.username);
+        });
+    }
   }
  
   async function fallback(agent) {
@@ -36,7 +59,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 
     let userCount = 0;
     for (let guild of guilds) {
-        await fetch('https://90d06e1b.ngrok.io/api/getUsersInVoiceChannels/' + guild.id + '?signature=' + encodeURIComponent(signPayload(guild.id))).then(res => res.json()).then((data) => {
+        await fetch('https://45cc4a25.ngrok.io/api/getUsersInVoiceChannels/' + guild.id + '?signature=' + encodeURIComponent(signPayload(guild.id))).then(res => res.json()).then((data) => {
             if (data.length === 0) {
                 return;
             }
@@ -44,11 +67,11 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
             let l_on, l_and;
             
             switch(getLanguage()) {
-                case 'de':
+                case 'de-DE':
                     l_on = 'Auf';
                     l_and = 'und';
                     break;
-                case 'en':
+                default:
                     l_on = 'On';
                     l_and = 'and';
                     break;
@@ -64,15 +87,16 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
                     speakOutput += ', ';
                 }
             }
+            speakOutput += '. '
         });
     }
 
     if (userCount === 0) {
         switch(getLanguage()) {
-            case 'de':
+            case 'de-DE':
                 speakOutput = 'Es ist niemand online';
                 break;
-            case 'en':
+            default:
                 speakOutput = 'No one is online';
                 break;
         }
@@ -105,7 +129,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   };
 
   const getLanguage = function() {
-    return "de";
+    return request.body.originalDetectIntentRequest.payload.user.locale;
   };
 
   // // Uncomment and edit to make your own intent handler
