@@ -15,7 +15,7 @@ const server = new http.Server(app);
 app.use(cors(),helmet());
 
 
-app.get('/api/getUsersInVoiceChannels/:serverid', async (req, res) => {
+app.get('/getUsersInVoiceChannels/:serverid', async (req, res) => {
     if (!verifySignature(req.params.serverid, decodeURIComponent(<string>req.query.signature))) {
         res.status(401);
         res.send('');
