@@ -1,0 +1,159 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    background: #26262b;
+    top: 0px;
+
+}
+
+.button {
+    background-color: #7289da;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 15px;
+    color: white;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button:hover {
+    box-shadow: 0px 0px 10px #0f0f0f;
+}
+
+.chat {
+    width: 60%; 
+    margin-left: 20%; 
+    position: relative;
+    top: 130px;
+}
+
+.speechbubble {
+    background: white;;
+    width: 400px;
+    margin: 20px;
+    padding: 10px 30px;
+    position: relative;
+    z-index: 10;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.speechbubble-l {
+    text-align: left;
+    border-radius: 10px 10px 10px 0px;
+}
+
+.speechbubble-r {
+    text-align: right;
+    border-radius: 10px 10px 0px 10px;
+}
+
+.speechbubble::before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 5;
+    top: 22px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid white;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid white;
+}
+
+.speechbubble-l::before {
+    left: -12px;
+}
+
+
+.speechbubble-r::before {
+    top: 44px;
+    right: -12px;
+    transform: rotateY(180deg);
+}
+
+.content{
+    background-color: #26262b;
+    position:absolute;
+    margin-top: 500px;
+    width: 100%;
+}
+
+.section {
+    width: 100%;
+    height:500px;
+    
+}
+
+.center {
+    text-align: center;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0%;
+    height: 50px;
+    background-color: #26262b;
+    z-index: 10;
+}
+
+
+
+ul {
+    bottom: 0%;
+    list-style-type: none;
+    display:inline;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-weight: 400;
+}
+
+a:hover {
+    color: hsla(0,0%,100%,.6);
+
+}
+
+
+
+.footer-menu li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.footer-menu {
+    width: 100%;
+    position: relative;
+    top: 50%;
+    transform: translatey(-50%);
+    height: 50px;
+}
+
+#description p{
+    color: white;
+}
+
+.description {
+    width: 50%;
+    font-weight: 400;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    color:hsla(0,0%,100%,.6);
+}

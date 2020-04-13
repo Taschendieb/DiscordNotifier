@@ -112,7 +112,7 @@ const WhosOnlineIntendHandler = {
 
         let userCount = 0;
         for (let guild of guilds) {
-            await fetch('https://90d06e1b.ngrok.io/api/getUsersInVoiceChannels/' + guild.id + '?signature=' + encodeURIComponent(signPayload(guild.id))).then(res => res.json()).then((data) => {
+            await fetch('https://discordnotifier.codenn.de/api/getUsersInVoiceChannels/' + guild.id + '?signature=' + encodeURIComponent(signPayload(guild.id))).then(res => res.json()).then((data) => {
                 if (data.length === 0) {
                     return;
                 }

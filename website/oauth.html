@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login with Discord</title>
+</head>
+<body style="color: white; font-size: 16px; background: #26262b; font-family: Helvetica, sans-serif;">
+    <h1>Discord Notifier</h1>
+    <p><span style="font-size: 24px;">English:</span> <br>To continue, you must log in with your Discord Account by clicking on the Button below. Note: this app is not associated with Discord in any way</p>
+    <p><span style="font-size: 24px;">Deutsch:</span> <br>Um fortzufahren musst du dich mit deinem Discord Account anmelden, indem du auf den Knopf unten drückst. Hinweis: Wir stehen nicht mit Discord in Verbindung</p>
+    <div id="login" style="margin: 50px 0px; cursor: pointer; width: 200px; padding: 10px; text-align: center; background: #7289da; border-radius: 5px; margin-left: 50%; transform: translate(-50%)">Login with Discord</div>
+    <a href="privacypolicy.html">Privacy Policy</a>
+    <script>
+        document.getElementById('login').addEventListener('click', function() {
+            window.location.href = "https://discordapp.com/api/oauth2/authorize" + window.location.search
+        });
+    </script>
+</body>
+</html>
