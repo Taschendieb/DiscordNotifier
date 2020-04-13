@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/helmet": "0.0.45",
+    "@types/ws": "^7.2.3",
     "cors": "^2.8.5",
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",

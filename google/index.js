@@ -59,7 +59,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 
     let userCount = 0;
     for (let guild of guilds) {
-        await fetch('https://45cc4a25.ngrok.io/api/getUsersInVoiceChannels/' + guild.id + '?signature=' + encodeURIComponent(signPayload(guild.id))).then(res => res.json()).then((data) => {
+        await fetch('https://discordnotifier.codenn.de/api/getUsersInVoiceChannels/' + guild.id + '?signature=' + encodeURIComponent(signPayload(guild.id))).then(res => res.json()).then((data) => {
             if (data.length === 0) {
                 return;
             }
