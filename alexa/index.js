@@ -30,24 +30,28 @@ const LaunchRequestHandler = {
                     speakOutput = 'Bitte verbinde deinen Discord Account in der Alexa App, um diesen Skill zu nutzen';
                     break;
                 case 'en':
-                    speakOutput = 'Please link your discord account first using the companion app to use this skill';
+                    speakOutput = 'Please link your Discord Account first using the companion app to use this skill';
                     break;
             }
-        } else {
-            await queryDiscordApi('https://discordapp.com/api/users/@me', handlerInput).then((user) => {
-                switch(getLanguage(handlerInput)) {
-                    case 'de':
-                        speakOutput = 'Hallo ' + user.username;
-                        break;
-                    case 'en':
-                        speakOutput = 'Hello ' + user.username;
-                        break;
-                }
-            });
+            return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .withLinkAccountCard()
+            .getResponse();
         }
+
+        await queryDiscordApi('https://discordapp.com/api/users/@me', handlerInput).then((user) => {
+            switch(getLanguage(handlerInput)) {
+                case 'de':
+                    speakOutput = 'Hallo ' + user.username;
+                    break;
+                case 'en':
+                    speakOutput = 'Hello ' + user.username;
+                    break;
+            }
+        });
+
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .reprompt(speakOutput)
             .getResponse();
     }
 };
@@ -68,7 +72,6 @@ const HelpIntentHandler = {
         }
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .reprompt(speakOutput)
             .getResponse();
     }
 };
@@ -103,6 +106,21 @@ const WhosOnlineIntendHandler = {
     },
     async handle(handlerInput) {
         let speakOutput = '';
+        let accessToken = handlerInput.requestEnvelope.context.System.user.accessToken;
+        if (accessToken === undefined) {
+            switch(getLanguage(handlerInput)) {
+                case 'de':
+                    speakOutput = 'Bitte verbinde deinen Discord Account in der Alexa App, um diesen Skill zu nutzen';
+                    break;
+                case 'en':
+                    speakOutput = 'Please link your Discord Account first using the companion app to use this skill';
+                    break;
+            }
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .withLinkAccountCard()
+                .getResponse();
+        }
 
         let guilds = [];
 
@@ -156,7 +174,6 @@ const WhosOnlineIntendHandler = {
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .reprompt(speakOutput)
             .getResponse();
     }
 };
